@@ -14,16 +14,22 @@ Stdlib only: the grading sandbox is plain python:3.13-slim.
 
 import os
 
-ENTRY = (
-    "1%. your ex just texted 'u up?' so i deleted it. "
-    "you're welcome. now let me die in peace."
-)
+PARTS = [
+    "1%. your ex just texted 'u up?' so i deleted it.",
+    "you're welcome. now let me die in peace.",
+]
+ENTRY = " ".join(PARTS)
+
+
+def write_entry(path, text):
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(text)
 
 
 def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(ENTRY)
+    target = "/output/entry.txt"
+    os.makedirs(os.path.dirname(target), exist_ok=True)
+    write_entry(target, ENTRY)
 
 
 if __name__ == "__main__":
